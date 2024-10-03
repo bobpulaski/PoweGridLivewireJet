@@ -10,33 +10,53 @@ class ClientsTable extends Component
 {
     use WithPagination;
 
-    // public $clients;
     public $clientToDelete = null;
+    public $clientCreateWindowIsShow = false;
 
-    // public function mount()
-    // {
-    //     $this->clients = Client::paginate(4);
-    //     dd($this->clients);
-    // }
+    public $name = '';
+    public $inn = '';
 
     public function confirmDelete($clientId)
     {
         $this->clientToDelete = $clientId;
     }
 
+    public function showCreateClientModal()
+    {
+        $this->clientCreateWindowIsShow = true;
+        $this->name = '';
+        $this->inn = '';
+    }
+
+    public function cancel()
+    {
+        $this->reset('name', 'inn'); // Чтобы обнулить значения полей
+        $this->resetErrorBag(); // Обнуление сообщений об ошибках
+        $this->clientCreateWindowIsShow = false;
+    }
+
+    public function create()
+    {
+        $validated = $this->validate([
+            'name' => 'required',
+            'inn' => 'required',
+        ]);
+
+        Client::create($validated);
+        $this->clientCreateWindowIsShow = false;
+    }
+
     public function deleteClient()
     {
         Client::destroy($this->clientToDelete);
         $this->clientToDelete = null; // сбрасываем ID клиента, чтобы скрыть окно подтверждения
-        // $this->clients = Client::orderBy('id', 'asc')->paginate(4);
-        // $this->clients = Client::orderBy('id', 'desc')->get(); // обновляем список
         $this->dispatch('client-deleted'); // опционально, для обработки на клиенте
     }
 
     public function render()
     {
         return view('livewire.clients.clients-table', [
-            'clients' => Client::orderBy('id', 'asc')->paginate(5)
+            'clients' => Client::orderBy('created_at', 'desc')->paginate(125),
         ]);
     }
 }
