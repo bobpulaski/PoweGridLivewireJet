@@ -1,8 +1,10 @@
 <div>
 
-    <button wire:click="showCreateClientModal"
-        class="rounded border px-2 py-1 text-xs font-bold text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-        {{ __('+ Add Client') }}</button>
+    <div class="flex p-4">
+        <button wire:click="showCreateClientModal"
+            class="rounded border px-2 py-1 text-xs font-bold text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+            {{ __('+ Add Client') }}</button>
+    </div>
 
     <x-table.table>
         <x-table.thead>

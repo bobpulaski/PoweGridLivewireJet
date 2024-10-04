@@ -1,7 +1,7 @@
 import "./bootstrap";
 
-window.addEventListener("client-deleted", (event) => {
-    toastr["success"]("Have fun storming the castle!", "Miracle Max Says", {
+window.addEventListener("alert", (event) => {
+    toastr[event.detail[0].type](event.detail[0].message, {
         closeButton: true,
         positionClass: "toast-top-right",
     });

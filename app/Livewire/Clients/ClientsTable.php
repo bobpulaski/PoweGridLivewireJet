@@ -44,13 +44,20 @@ class ClientsTable extends Component
 
         Client::create($validated);
         $this->clientCreateWindowIsShow = false;
+        $this->dispatch('alert', [
+            'type' => 'success',
+            'message' => __('User has been created.'),
+        ]);
     }
 
     public function deleteClient()
     {
         Client::destroy($this->clientToDelete);
         $this->clientToDelete = null; // сбрасываем ID клиента, чтобы скрыть окно подтверждения
-        $this->dispatch('client-deleted'); // опционально, для обработки на клиенте
+        $this->dispatch('alert', [
+            'type' => 'info',
+            'message' => __('User has been deleted.'),
+        ]);
     }
 
     public function render()
