@@ -12,5 +12,6 @@ class Client extends Model
     protected $fillable = [
         "name",
         "inn",
+        "user_id",
     ];
 }
