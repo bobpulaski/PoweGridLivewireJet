@@ -24,7 +24,11 @@
             @foreach ($clients as $client)
                 <x-table.tr>
                     <x-table.td>{{ $client->id }}</x-table.td>
-                    <x-table.td>{{ $client->name }}</x-table.td>
+                    <x-table.td class="td"><a wire:navigate
+                            href="{{ route('clients.show', $client->id) }}" class="underline">{{ $client->name }}</a>
+                        <br>
+                        <small>{{ route('clients.show', $client->id) }}</small>
+                    </x-table.td>
                     <x-table.td>{{ $client->inn }}</x-table.td>
                     <x-table.td>{{ $client->user_id }}</x-table.td>
                     <x-table.td>
@@ -50,8 +54,6 @@
     </x-table.table>
 
     {{ $clients->links() }}
-
-
 
 
     {{-- Окно подтверждения удаления Jetstream --}}
